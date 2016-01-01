@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnMapClickListener;
@@ -161,7 +162,7 @@ public class MainActivity extends FragmentActivity {
                 br.close();
 
         }catch(Exception e){
-               // Log.d("Exception while downloading url", e.toString());
+                Log.d("Exception while downloading url", e.toString());
         }finally{
                 iStream.close();
                 urlConnection.disconnect();
@@ -258,9 +259,13 @@ public class MainActivity extends FragmentActivity {
 				lineOptions.color(Color.RED);	
 				
 			}
-			
-			// Drawing polyline in the Google Map for the i-th route
-			map.addPolyline(lineOptions);							
+
+			if(lineOptions==null){
+				Toast.makeText(getApplicationContext(), "There are no route in two point", Toast.LENGTH_LONG).show();
+			}
+			else {
+				map.addPolyline(lineOptions);
+			}
 		}			
     }   
     
